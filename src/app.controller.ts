@@ -6,7 +6,7 @@ import { BaseResponseDTO } from './dto/base.dto';
 import { GetEncryptDataResponseDataDTO } from './dto/get-encrypt-data/response.dto';
 import { GetDecryptDataResponseDataDTO } from './dto/get-decrypt-data/response.dto';
 import { GetDecryptDataRequestBodyDTO } from './dto/get-decrypt-data/request.dto';
-import { ApiOkResponse, ApiTags } from '@nestjs/swagger';
+import { ApiBadRequestResponse, ApiInternalServerErrorResponse, ApiOkResponse, ApiTags } from '@nestjs/swagger';
 
 @Controller()
 @ApiTags("Encrypt and decrypt")
@@ -15,9 +15,9 @@ export class AppController
     constructor(private readonly appService: AppService) {}
 
     @Post("/get-encrypt-data")
-    @ApiOkResponse({
-        description: "Everything is good."
-    })
+    @ApiOkResponse({ description: "Everything is good." })
+    @ApiBadRequestResponse({ description: "Your request have something wrong." })
+    @ApiInternalServerErrorResponse({ description: "Something can't process or incorrect." })
     async getEncryptData
     (
         @Body() b: GetEncryptDataRequestBodyDTO,
