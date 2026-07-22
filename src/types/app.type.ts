@@ -1,0 +1,1 @@
+export type TKeys = "aes" | "private" | "public"
